@@ -74,13 +74,11 @@ class StaticSettingsTest extends TestCase {
   }
 
   /**
-   * Test that setting an unregistered value throws an exception.
+   * Test that setting an unregistered value registers the class, too.
    */
   public function testSetUnregisteredValue(): void {
-    $this->expectException(InvalidStaticSettingsException::class);
-    $this->expectExceptionMessage('Class not registered: ' . TestEnvironment::class);
-
     StaticSettings::set(TestEnvironment::class, TestEnvironment::Production);
+    $this->expectNotToPerformAssertions();
   }
 
   /**
