@@ -41,20 +41,6 @@ final class StaticSettings implements StaticSettingsInterface {
   }
 
   /**
-   * Register a class to be used with static settings.
-   *
-   * @param string $class
-   *   The class used to validate the setting.
-   *
-   * @deprecated in 1.1.0 and is removed from 2.0.0. Use ::registerSetting instead.
-   * @see https://github.com/owenbush/static-settings/issues/1
-   */
-  public static function registerValue(string $class): void {
-    @trigger_error(sprintf('The method %s is deprecated in 1.1.0 and is removed from 2.0.0. Use ::registerSetting instead. See https://github.com/owenbush/static-settings/issues/1', __METHOD__), E_USER_DEPRECATED);
-    self::registerSetting($class);
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function set(string $class, mixed $setting_value): void {
@@ -64,7 +50,7 @@ final class StaticSettings implements StaticSettingsInterface {
       }
       $setting_name = $class::settingName();
       if (!isset(self::$registeredValues[$setting_name])) {
-        throw new \Exception('Class not registered: ' . $class);
+        self::registerSetting($class);
       }
 
       // Add validation for enum values.
