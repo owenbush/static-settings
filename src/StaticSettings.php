@@ -26,12 +26,13 @@ final class StaticSettings implements StaticSettingsInterface {
   /**
    * {@inheritdoc}
    */
-  public static function registerValue(string $class): void {
+  public static function registerSetting(string $class): void {
     if (!is_subclass_of($class, BaseStaticSettingInterface::class)) {
       throw new \Exception('Class must implement BaseStaticSettingInterface: ' . $class);
     }
     $setting_name = $class::settingName();
-    if (isset(self::$registeredValues[$setting_name])
+    if (
+      isset(self::$registeredValues[$setting_name])
       && self::$registeredValues[$setting_name] !== $class
     ) {
       throw new \Exception('Value already registered with a different class.');
@@ -49,7 +50,7 @@ final class StaticSettings implements StaticSettingsInterface {
       }
       $setting_name = $class::settingName();
       if (!isset(self::$registeredValues[$setting_name])) {
-        throw new \Exception('Class not registered: ' . $class);
+        self::registerSetting($class);
       }
 
       // Add validation for enum values.
