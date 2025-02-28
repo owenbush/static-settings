@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruleset name="Static Settings Coding Standards">
+    <description>Drupal coding standards for Static Settings</description>
+
+    <!-- Scan these files -->
+    <file>src</file>
+    <file>tests</file>
+
+    <!-- Use Drupal Coding Standards -->
+    <rule ref="Drupal"/>
+    <rule ref="DrupalPractice"/>
+
+    <!-- Show progress -->
+    <arg value="p"/>
+    <arg name="colors"/>
+
+    <!-- Show sniff codes in all reports -->
+    <arg value="s"/>
+
+    <!-- Use 2 spaces for indentation -->
+    <arg name="tab-width" value="2"/>
+
+    <!-- Check only PHP files -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Ignore vendor files -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>
