@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/owenbush/static-settings/actions/workflows/tests.yml/badge.svg)](https://github.com/owenbush/static-settings/actions/workflows/tests.yml)
 
-A PHP library for managing static settings using PHP enums. This library provides a type-safe way to manage global settings in your PHP application using PHP 8.1+ enums.
+A PHP library for managing static settings using a type-safe API with PHP 8.1+ enums.
 
 ## Requirements
 
@@ -33,9 +33,9 @@ namespace YOURNAMESPACE;
 use StaticSettings\BaseStaticSettingInterface;
 
 enum Environment: string implements BaseStaticSettingInterface {
-  case DEVELOPMENT = 'development';
-  case STAGING = 'staging';
-  case PRODUCTION = 'production';
+  case Development = 'development';
+  case Staging = 'staging';
+  case Production = 'production';
 
   /**
   * {@inheritDoc}
@@ -62,10 +62,10 @@ Now you can set and get values:
 
 ```php
 // Set the environment
-StaticSettings::set(Environment::class, Environment::PRODUCTION);
+StaticSettings::set(Environment::class, Environment::Production);
 // Get the current environment
 $environment = StaticSettings::get(Environment::class);
-if ($environment === Environment::PRODUCTION) {
+if ($environment === Environment::Production) {
 // Do production-specific things
 }
 ```
