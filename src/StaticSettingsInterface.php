@@ -15,7 +15,7 @@ interface StaticSettingsInterface {
    * @param string $class
    *   The class used to validate the setting.
    */
-  public static function registerValue(string $class): void;
+  public static function registerSetting(string $class): void;
 
   /**
    * Set a static setting value.

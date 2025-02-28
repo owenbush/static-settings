@@ -53,7 +53,7 @@ Before you can use a setting, you need to register it:
 ```php
 use StaticSettings\StaticSettings;
 
-StaticSettings::registerValue(Environment::class);
+StaticSettings::registerSetting(Environment::class);
 ```
 
 ### 3. Set and Get Values

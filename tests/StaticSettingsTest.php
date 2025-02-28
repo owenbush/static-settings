@@ -38,8 +38,8 @@ class StaticSettingsTest extends TestCase {
   /**
    * Test that a value can be registered with a valid class.
    */
-  public function testRegisterValue(): void {
-    StaticSettings::registerValue(TestEnvironment::class);
+  public function testRegisterSetting(): void {
+    StaticSettings::registerSetting(TestEnvironment::class);
     $this->expectNotToPerformAssertions();
   }
 
@@ -47,8 +47,8 @@ class StaticSettingsTest extends TestCase {
    * Test that you can register the same value with the same class.
    */
   public function testRegisterDuplicateValueWithSameClass(): void {
-    StaticSettings::registerValue(TestEnvironment::class);
-    StaticSettings::registerValue(TestEnvironment::class);
+    StaticSettings::registerSetting(TestEnvironment::class);
+    StaticSettings::registerSetting(TestEnvironment::class);
     $this->expectNotToPerformAssertions();
   }
 
@@ -56,19 +56,19 @@ class StaticSettingsTest extends TestCase {
    * Test that you cannot register the same setting name with a different class.
    */
   public function testRegisterDuplicateValueWithDifferentClass(): void {
-    StaticSettings::registerValue(TestEnvironment::class);
+    StaticSettings::registerSetting(TestEnvironment::class);
 
     $this->expectException(\Exception::class);
     $this->expectExceptionMessage('Value already registered with a different class.');
 
-    StaticSettings::registerValue(TestAnotherEnvironment::class);
+    StaticSettings::registerSetting(TestAnotherEnvironment::class);
   }
 
   /**
    * Test that a valid enum value can be set for a registered setting.
    */
   public function testSetValidValue(): void {
-    StaticSettings::registerValue(TestEnvironment::class);
+    StaticSettings::registerSetting(TestEnvironment::class);
     StaticSettings::set(TestEnvironment::class, TestEnvironment::Production);
     $this->expectNotToPerformAssertions();
   }
@@ -87,7 +87,7 @@ class StaticSettingsTest extends TestCase {
    * Test that a previously set value can be retrieved correctly.
    */
   public function testGetValidValue(): void {
-    StaticSettings::registerValue(TestEnvironment::class);
+    StaticSettings::registerSetting(TestEnvironment::class);
     StaticSettings::set(TestEnvironment::class, TestEnvironment::Production);
 
     $value = StaticSettings::get(TestEnvironment::class);
@@ -108,7 +108,7 @@ class StaticSettingsTest extends TestCase {
    * Test that getting a registered but unset value returns null.
    */
   public function testGetNonExistentValue(): void {
-    StaticSettings::registerValue(TestEnvironment::class);
+    StaticSettings::registerSetting(TestEnvironment::class);
 
     $value = StaticSettings::get(TestEnvironment::class);
     $this->assertNull($value);
@@ -118,7 +118,7 @@ class StaticSettingsTest extends TestCase {
    * Test that setting an invalid value for an enum throws an exception.
    */
   public function testSetInvalidEnumValue(): void {
-    StaticSettings::registerValue(TestEnvironment::class);
+    StaticSettings::registerSetting(TestEnvironment::class);
 
     $this->expectException(InvalidStaticSettingsException::class);
     $this->expectExceptionMessage('Invalid value for enum ' . TestEnvironment::class);
