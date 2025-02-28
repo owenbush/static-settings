@@ -48,7 +48,9 @@ enum Environment: string implements BaseStaticSettingInterface {
 
 ### 2. Register Your Setting
 
-Before you can use a setting, you need to register it:
+Before you use your setting, you should register it. This prevents other code
+from registering the same name and conflicting. This step is optional as when
+you set a setting for the first time it will also register it.
 
 ```php
 use StaticSettings\StaticSettings;
@@ -74,7 +76,7 @@ if ($environment === Environment::Production) {
 ### Error Handling
 
 The library will throw `InvalidStaticSettingsException` in these cases:
-- Attempting to get/set an unregistered setting
+- Attempting to get an unregistered setting
 - Setting an invalid value for an enum
 - Registering the same setting name with different classes
 

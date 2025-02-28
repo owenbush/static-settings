@@ -2,9 +2,15 @@ name: Tests
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - "*.*.x"
+    tags:
+      - "*.*.*"
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+      - "*.*.x"
 
 jobs:
   test:
