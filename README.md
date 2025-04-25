@@ -36,13 +36,6 @@ enum Environment: string implements BaseStaticSettingInterface {
   case Development = 'development';
   case Staging = 'staging';
   case Production = 'production';
-
-  /**
-  * {@inheritDoc}
-  */
-  public static function settingName(): string {
-    return 'environment';
-  }
 }
 ```
 
@@ -70,6 +63,22 @@ $environment = StaticSettings::get(Environment::class);
 if ($environment === Environment::Production) {
 // Do production-specific things
 }
+```
+
+You can also set multiple values at once using:
+
+```php
+// Set up some settings.
+$settings = [
+  Environment::class => Environment::Production,
+  SomeOtherClass:class => SomeOtherClass::Value,
+];
+
+// Set multiple settings at once.
+StaticSettings::setMultiple($settings);
+
+// Retrieve the environment setting.
+$environment = StaticSettings::get(Environment::class);
 ```
 
 
