@@ -30,14 +30,13 @@ final class StaticSettings implements StaticSettingsInterface {
     if (!is_subclass_of($class, BaseStaticSettingInterface::class)) {
       throw new \Exception('Class must implement BaseStaticSettingInterface: ' . $class);
     }
-    $setting_name = $class::settingName();
     if (
-      isset(self::$registeredValues[$setting_name])
-      && self::$registeredValues[$setting_name] !== $class
+      isset(self::$registeredValues[$class])
+      && self::$registeredValues[$class] !== $class
     ) {
       throw new \Exception('Value already registered with a different class.');
     }
-    self::$registeredValues[$setting_name] = $class;
+    self::$registeredValues[$class] = $class;
   }
 
   /**
@@ -48,8 +47,7 @@ final class StaticSettings implements StaticSettingsInterface {
       if (!is_subclass_of($class, BaseStaticSettingInterface::class)) {
         throw new \Exception('Class must implement BaseStaticSettingInterface: ' . $class);
       }
-      $setting_name = $class::settingName();
-      if (!isset(self::$registeredValues[$setting_name])) {
+      if (!isset(self::$registeredValues[$class])) {
         self::registerSetting($class);
       }
 
@@ -58,7 +56,7 @@ final class StaticSettings implements StaticSettingsInterface {
         throw new \Exception('Invalid value for enum ' . $class);
       }
 
-      static::$values[$setting_name] = $setting_value;
+      static::$values[$class] = $setting_value;
     }
     catch (\Throwable $e) {
       throw new InvalidStaticSettingsException($e->getMessage());
@@ -73,11 +71,10 @@ final class StaticSettings implements StaticSettingsInterface {
       if (!is_subclass_of($class, BaseStaticSettingInterface::class)) {
         throw new \Exception('Class must implement BaseStaticSettingInterface: ' . $class);
       }
-      $setting_name = $class::settingName();
-      if (!isset(self::$registeredValues[$setting_name])) {
+      if (!isset(self::$registeredValues[$class])) {
         throw new \Exception('Class not registered: ' . $class);
       }
-      return static::$values[$setting_name] ?? NULL;
+      return static::$values[$class] ?? NULL;
     }
     catch (\Throwable $e) {
       throw new InvalidStaticSettingsException($e->getMessage());
