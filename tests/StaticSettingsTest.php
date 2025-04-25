@@ -61,7 +61,7 @@ class StaticSettingsTest extends TestCase {
     $this->expectException(\Exception::class);
     $this->expectExceptionMessage('Value already registered with a different class.');
 
-    StaticSettings::registerSetting(TestAnotherEnvironment::class);
+    StaticSettings::set(TestEnvironment::class, TestAnotherEnvironment::Development);
   }
 
   /**
