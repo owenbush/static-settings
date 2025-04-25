@@ -66,6 +66,15 @@ final class StaticSettings implements StaticSettingsInterface {
   /**
    * {@inheritdoc}
    */
+  public static function setMultiple(array $settings): void {
+    array_walk($settings, function ($setting_value, $class) {
+      self::set($class, $setting_value);
+    });
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function get(string $class): ?BaseStaticSettingInterface {
     try {
       if (!is_subclass_of($class, BaseStaticSettingInterface::class)) {

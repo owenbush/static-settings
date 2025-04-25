@@ -28,6 +28,14 @@ interface StaticSettingsInterface {
   public static function set(string $class, mixed $setting_value): void;
 
   /**
+   * Set multiple static setting values at once.
+   *
+   * @param array $settings
+   *   Array of settings where key is a class namespace and value is the value.
+   */
+  public static function setMultiple(array $settings): void;
+
+  /**
    * Get a static setting value.
    *
    * @param string $class

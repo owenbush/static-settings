@@ -112,4 +112,19 @@ class StaticSettingsTest extends TestCase {
     StaticSettings::set(TestEnvironment::class, 'test');
   }
 
+  /**
+   * Test that multiple settings can be set at once.
+   */
+  public function testSetMultiple(): void {
+    $settings = [
+      TestEnvironment::class => TestEnvironment::Production,
+      TestAnotherSetting::class => TestAnotherSetting::Value1,
+    ];
+
+    StaticSettings::setMultiple($settings);
+
+    $this->assertEquals(TestEnvironment::Production, StaticSettings::get(TestEnvironment::class));
+    $this->assertEquals(TestAnotherSetting::Value1, StaticSettings::get(TestAnotherSetting::class));
+  }
+
 }
