@@ -53,18 +53,6 @@ class StaticSettingsTest extends TestCase {
   }
 
   /**
-   * Test that you cannot register the same setting name with a different class.
-   */
-  public function testRegisterDuplicateValueWithDifferentClass(): void {
-    StaticSettings::registerSetting(TestEnvironment::class);
-
-    $this->expectException(\Exception::class);
-    $this->expectExceptionMessage('Value already registered with a different class.');
-
-    StaticSettings::registerSetting(TestAnotherEnvironment::class);
-  }
-
-  /**
    * Test that a valid enum value can be set for a registered setting.
    */
   public function testSetValidValue(): void {

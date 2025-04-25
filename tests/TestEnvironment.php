@@ -13,12 +13,4 @@ enum TestEnvironment: string implements BaseStaticSettingInterface {
   case Development = 'development';
   case Staging = 'staging';
   case Production = 'production';
-
-  /**
-   * {@inheritDoc}
-   */
-  public static function settingName(): string {
-    return 'environment';
-  }
-
 }
